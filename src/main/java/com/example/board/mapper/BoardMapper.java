@@ -12,8 +12,8 @@ public interface BoardMapper {
 
     int registerBoard(BoardVO boardVO);
 
-    int deleteBoard(BoardVO boardVO);
-
     int updateBoard(BoardVO boardVO);
+
+    int deleteBoard(BoardVO boardVO);
 
 }
