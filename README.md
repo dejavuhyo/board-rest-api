@@ -10,8 +10,10 @@
 
 * /db/table.sql
 
-## 3. Rest API 실행
-게시판 CRUD 예제
+## 3. 설명
+Rest API 게시판 CRUD 예제
+
+## 4. Rest API 실행
 
 ### 1) 조회
 
