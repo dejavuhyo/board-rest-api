@@ -41,12 +41,6 @@
                , #{writer})
     </insert>
 
-    <delete id="deleteBoard" parameterType="com.example.board.vo.BoardVO">
-        delete
-        from tb_board
-        where id = #{id}
-    </delete>
-
     <update id="updateBoard" parameterType="com.example.board.vo.BoardVO">
         update tb_board
         set title    = #{title}
@@ -54,5 +48,11 @@
           , writer = #{writer}
         where id = #{id}
     </update>
+
+    <delete id="deleteBoard" parameterType="com.example.board.vo.BoardVO">
+        delete
+        from tb_board
+        where id = #{id}
+    </delete>
 
 </mapper>
