@@ -31,12 +31,7 @@ Rest API 게시판 CRUD 예제
   - contents=내용
   - writer=작성자
 
-### 3) 삭제
-
-* DELETE
-  - http://localhost:8080/board/1
-
-### 4) 수정
+### 3) 수정
 
 * PUT
   - http://localhost:8080/board
@@ -45,3 +40,8 @@ Rest API 게시판 CRUD 예제
   - title=수정제목
   - contents=수정내용
   - writer=수정작성자
+
+### 4) 삭제
+
+* DELETE
+  - http://localhost:8080/board/1
