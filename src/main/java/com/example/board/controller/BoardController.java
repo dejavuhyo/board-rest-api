@@ -68,23 +68,6 @@ public class BoardController {
     }
 
     /**
-     * 삭제
-     *
-     * @param boardVO
-     * @return
-     */
-    @DeleteMapping("/board/{id}")
-    public ResponseEntity deleteBoard(BoardVO boardVO) {
-
-        int deleteBoard = boardService.deleteBoard(boardVO);
-        if (deleteBoard == 0) {
-            return new ResponseEntity("삭제 실패", HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity("삭제 완료", HttpStatus.OK);
-    }
-
-    /**
      * 수정
      *
      * @param boardVO
@@ -99,6 +82,23 @@ public class BoardController {
         }
 
         return new ResponseEntity("수정 완료", HttpStatus.OK);
+    }
+
+    /**
+     * 삭제
+     *
+     * @param boardVO
+     * @return
+     */
+    @DeleteMapping("/board/{id}")
+    public ResponseEntity deleteBoard(BoardVO boardVO) {
+
+        int deleteBoard = boardService.deleteBoard(boardVO);
+        if (deleteBoard == 0) {
+            return new ResponseEntity("삭제 실패", HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity("삭제 완료", HttpStatus.OK);
     }
 
 }
