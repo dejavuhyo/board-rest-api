@@ -11,6 +11,7 @@
 * /db/table.sql
 
 ## 3. Rest API 실행
+게시판 CRUD 예제
 
 ### 1) 조회
 
