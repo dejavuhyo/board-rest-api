@@ -30,13 +30,13 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public int deleteBoard(BoardVO boardVO) {
-        return boardMapper.deleteBoard(boardVO);
+    public int updateBoard(BoardVO boardVO) {
+        return boardMapper.updateBoard(boardVO);
     }
 
     @Override
-    public int updateBoard(BoardVO boardVO) {
-        return boardMapper.updateBoard(boardVO);
+    public int deleteBoard(BoardVO boardVO) {
+        return boardMapper.deleteBoard(boardVO);
     }
 
 }
