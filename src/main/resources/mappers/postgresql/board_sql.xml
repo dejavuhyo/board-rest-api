@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.board.mapper.BoardMapper">
+
+    <select id="getBoardList" resultType="com.example.board.vo.BoardVO">
+        select id
+             , title
+             , contents
+             , writer
+             , reg_date
+             , view_cnt
+        from tb_board
+        order by id desc
+    </select>
+
+    <select id="findBoardById" parameterType="com.example.board.vo.BoardVO" resultType="com.example.board.vo.BoardVO">
+        select id
+             , title
+             , contents
+             , writer
+             , reg_date
+             , view_cnt
+        from tb_board
+        where id = #{id}
+        order by id desc
+    </select>
+
+    <insert id="registerBoard" parameterType="com.example.board.vo.BoardVO">
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            select max(id + 1) from tb_board
+        </selectKey>
+
+        insert into tb_board ( id
+                             , title
+                             , contents
+                             , writer)
+        values ( #{id}
+               , #{title}
+               , #{contents}
+               , #{writer})
+    </insert>
+
+    <delete id="deleteBoard" parameterType="com.example.board.vo.BoardVO">
+        delete
+        from tb_board
+        where id = #{id}
+    </delete>
+
+    <update id="updateBoard" parameterType="com.example.board.vo.BoardVO">
+        update tb_board
+        set title    = #{title}
+          , contents = #{contents}
+          , writer = #{writer}
+        where id = #{id}
+    </update>
+
+</mapper>
