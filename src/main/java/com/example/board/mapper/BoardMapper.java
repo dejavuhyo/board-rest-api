@@ -8,6 +8,8 @@ public interface BoardMapper {
 
     List<BoardVO> getBoardList();
 
+    List<BoardVO> searchBoardList(BoardVO boardVO);
+
     BoardVO findBoardById(BoardVO boardVO);
 
     int registerBoard(BoardVO boardVO);
