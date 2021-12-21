@@ -17,6 +17,7 @@ public class BoardVO {
     private String writer;
     private Date regDate;
     private int viewCnt;
-    private String keyword;
+    private String searchType;
+    private String searchWord;
 
 }
