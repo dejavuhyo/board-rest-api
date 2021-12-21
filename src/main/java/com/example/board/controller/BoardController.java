@@ -35,6 +35,7 @@ public class BoardController {
     /**
      * 검색
      *
+     * @param boardVO
      * @return
      */
     @GetMapping("/board/search")
