@@ -33,6 +33,23 @@ public class BoardController {
     }
 
     /**
+     * 검색
+     *
+     * @return
+     */
+    @GetMapping("/board/search")
+    public ResponseEntity searchBoardList(BoardVO boardVO) {
+
+        List<BoardVO> searchBoardList = boardService.searchBoardList(boardVO);
+
+        if (searchBoardList == null) {
+            return new ResponseEntity("검색 실패", HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity(searchBoardList, HttpStatus.OK);
+    }
+
+    /**
      * 상세 조회
      *
      * @param boardVO
