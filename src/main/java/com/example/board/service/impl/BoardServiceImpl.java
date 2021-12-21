@@ -20,6 +20,11 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public List<BoardVO> searchBoardList(BoardVO boardVO) {
+        return boardMapper.searchBoardList(boardVO);
+    }
+
+    @Override
     public BoardVO findBoardById(BoardVO boardVO) {
         return boardMapper.findBoardById(boardVO);
     }
