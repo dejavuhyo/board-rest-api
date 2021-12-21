@@ -14,6 +14,27 @@
         order by id desc
     </select>
 
+    <select id="searchBoardList" parameterType="com.example.board.vo.BoardVO" resultType="com.example.board.vo.BoardVO">
+        select id
+             , title
+             , contents
+             , writer
+             , reg_date
+             , view_cnt
+        from tb_board
+        <where>
+            <choose>
+                <when test="searchType.equalsIgnoreCase('t')">
+                    and title like CONCAT('%', #{searchWord}, '%')
+                </when>
+                <when test="searchType.equalsIgnoreCase('c')">
+                    and contents like CONCAT('%', #{searchWord}, '%')
+                </when>
+            </choose>
+        </where>
+        order by id desc
+    </select>
+
     <select id="findBoardById" parameterType="com.example.board.vo.BoardVO" resultType="com.example.board.vo.BoardVO">
         select id
              , title
