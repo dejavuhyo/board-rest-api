@@ -1,7 +1,7 @@
-# spring-boot-rest-api
+# Board Rest API
 
 ## 1. 설명
-Rest API 게시판 CRUD 예제
+게시판 Rest API CRUD 예제
 
 ## 2. 개발환경
 
@@ -20,13 +20,13 @@ Rest API 게시판 CRUD 예제
 ### 1) 조회
 
 * GET
-  - 목록 조회: http://localhost:8080/board
-  - 상세 조회: http://localhost:8080/board/1
+  - 목록 조회: http://localhost:8081/board
+  - 상세 조회: http://localhost:8081/board/1
 
 ### 2) 등록
 
 * POST
-  - http://localhost:8080/board
+  - http://localhost:8081/board
 
 * Params
   - title=제목
@@ -36,7 +36,7 @@ Rest API 게시판 CRUD 예제
 ### 3) 수정
 
 * PUT
-  - http://localhost:8080/board
+  - http://localhost:8081/board
 
 * Params
   - title=수정제목
@@ -46,4 +46,4 @@ Rest API 게시판 CRUD 예제
 ### 4) 삭제
 
 * DELETE
-  - http://localhost:8080/board/1
+  - http://localhost:8081/board/1
