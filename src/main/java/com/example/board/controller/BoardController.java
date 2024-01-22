@@ -21,15 +21,22 @@ public class BoardController {
      * @return
      */
     @GetMapping("/board")
-    public ResponseEntity getBoardList() {
+    public ResponseEntity<Message> getBoardList() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Content-type", "application/json;charset=UTF-8");
+        Message message = new Message();
 
-        List<BoardVO> getBoardList = boardService.getBoardList();
-
-        if (getBoardList == null) {
-            return new ResponseEntity("조회 실패", HttpStatus.NOT_FOUND);
+        try {
+            List<BoardDto> getBoardList = boardService.getBoardList();
+            message.setStatus(StatusEnum.OK);
+            message.setData(getBoardList);
+            message.setMessage("success");
+            return new ResponseEntity<>(message, httpHeaders, HttpStatus.OK);
+        } catch (Exception e) {
+            message.setStatus(StatusEnum.INTERNAL_SERVER_ERROR);
+            message.setMessage("fail");
+            return new ResponseEntity<>(message, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return new ResponseEntity(getBoardList, HttpStatus.OK);
     }
 
     /**
