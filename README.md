@@ -49,8 +49,8 @@ http://localhost:8081/board/search
 
 ```json
 {
-	"searchType": "t",
-	"searchWord": "제목"
+  "searchType": "t",
+  "searchWord": "제목"
 }
 ```
 
@@ -69,8 +69,8 @@ http://localhost:8081/board
 
 ```json
 {
-	"title": "제목",
-	"contents": "내용",
+  "title": "제목",
+  "contents": "내용",
   "writer": "작성자"
 }
 ```
@@ -90,8 +90,8 @@ http://localhost:8081/board
 
 ```json
 {
-	"title": "수정 제목",
-	"contents": "수정 내용",
+  "title": "수정 제목",
+  "contents": "수정 내용",
   "writer": "수정 작성자"
 }
 ```
