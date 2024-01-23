@@ -1,22 +1,22 @@
-package com.example.board.vo;
+package com.example.board.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.Date;
 
 @Getter
 @Setter
-@ToString
-public class BoardVO {
+@NoArgsConstructor
+public class BoardDto {
 
-    private int id;
+    private Long id;
     private String title;
     private String contents;
     private String writer;
     private Date regDate;
-    private int viewCnt;
+    private Long viewCnt;
     private String searchType;
     private String searchWord;
 
