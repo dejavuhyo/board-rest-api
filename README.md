@@ -11,39 +11,95 @@
 
 * PostgreSQL 13.5
 
+* MyBatis 2.2.0
+
 ## 3. DB (PostgreSQL)
 
 * /db/table.sql
 
 ## 4. Rest API 실행
 
-### 1) 조회
+### 1) 목록 조회
 
 * GET
-  - 목록 조회: http://localhost:8081/board
-  - 상세 조회: http://localhost:8081/board/1
 
-### 2) 등록
+```text
+http://localhost:8081/board
+```
+
+### 2) 상세 조회
+
+* GET
+
+```text
+http://localhost:8081/board/1
+```
+
+### 3) 검색
+
+* GET
+
+```text
+http://localhost:8081/board/search
+```
+
+* Params
+  - searchType: t (제목)
+  - searchType: c (내용)
+
+```json
+{
+	"searchType": "t",
+	"searchWord": "제목"
+}
+```
+
+### 4) 등록
 
 * POST
-  - http://localhost:8081/board
+
+```text
+http://localhost:8081/board
+```
 
 * Params
-  - title=제목
-  - contents=내용
-  - writer=작성자
+  - title: 제목
+  - contents: 내용
+  - writer: 작성자
 
-### 3) 수정
+```json
+{
+	"title": "제목",
+	"contents": "내용",
+  "writer": "작성자"
+}
+```
+
+### 5) 수정
 
 * PUT
-  - http://localhost:8081/board
+
+```text
+http://localhost:8081/board
+```
 
 * Params
-  - title=수정제목
-  - contents=수정내용
-  - writer=수정작성자
+  - title: 수정 제목
+  - contents: 수정 내용
+  - writer: 수정 작성자
 
-### 4) 삭제
+```json
+{
+	"title": "수정 제목",
+	"contents": "수정 내용",
+  "writer": "수정 작성자"
+}
+```
+
+### 6) 삭제
 
 * DELETE
-  - http://localhost:8081/board/1
+
+```text
+http://localhost:8081/board/1
+```
