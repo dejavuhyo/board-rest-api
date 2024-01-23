@@ -1,10 +1,19 @@
 package com.example.board.controller;
 
+import com.example.board.dto.BoardDto;
+import com.example.board.dto.Message;
+import com.example.board.dto.StatusEnum;
 import com.example.board.service.BoardService;
-import com.example.board.vo.BoardVO;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -42,88 +51,143 @@ public class BoardController {
     /**
      * 검색
      *
-     * @param boardVO
+     * @param boardDto
      * @return
      */
     @GetMapping("/board/search")
-    public ResponseEntity searchBoardList(BoardVO boardVO) {
+    public ResponseEntity<Message> searchBoardList(@RequestBody BoardDto boardDto) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Content-type", "application/json;charset=UTF-8");
+        Message message = new Message();
 
-        List<BoardVO> searchBoardList = boardService.searchBoardList(boardVO);
-
-        if (searchBoardList == null) {
-            return new ResponseEntity("검색 실패", HttpStatus.NOT_FOUND);
+        try {
+            List<BoardDto> searchBoardList = boardService.searchBoardList(boardDto);
+            message.setStatus(StatusEnum.OK);
+            message.setData(searchBoardList);
+            message.setMessage("success");
+            return new ResponseEntity<>(message, httpHeaders, HttpStatus.OK);
+        } catch (Exception e) {
+            message.setStatus(StatusEnum.INTERNAL_SERVER_ERROR);
+            message.setMessage("fail");
+            return new ResponseEntity<>(message, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return new ResponseEntity(searchBoardList, HttpStatus.OK);
     }
 
     /**
      * 상세 조회
      *
-     * @param boardVO
+     * @param id
      * @return
      */
     @GetMapping("/board/{id}")
-    public ResponseEntity findBoardById(BoardVO boardVO) {
+    public ResponseEntity<Message> findBoardById(@PathVariable Long id) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Content-type", "application/json;charset=UTF-8");
+        Message message = new Message();
 
-        BoardVO findBoardById = boardService.findBoardById(boardVO);
-
-        if (findBoardById == null) {
-            return new ResponseEntity("조회 실패", HttpStatus.NOT_FOUND);
+        try {
+            BoardDto findBoardById = boardService.findBoardById(id);
+            message.setStatus(StatusEnum.OK);
+            message.setData(findBoardById);
+            message.setMessage("success");
+            return new ResponseEntity<>(message, httpHeaders, HttpStatus.OK);
+        } catch (Exception e) {
+            message.setStatus(StatusEnum.INTERNAL_SERVER_ERROR);
+            message.setMessage("fail");
+            return new ResponseEntity<>(message, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return new ResponseEntity(findBoardById, HttpStatus.OK);
     }
 
     /**
      * 등록
      *
-     * @param boardVO
+     * @param boardDto
      * @return
      */
     @PostMapping("/board")
-    public ResponseEntity registerBoard(BoardVO boardVO) {
+    public ResponseEntity<Message> registerBoard(@RequestBody BoardDto boardDto) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Content-type", "application/json;charset=UTF-8");
+        Message message = new Message();
 
-        int registerBoard = boardService.registerBoard(boardVO);
-        if (registerBoard == 0) {
-            return new ResponseEntity("등록 실패", HttpStatus.NOT_FOUND);
+        try {
+            int registerBoard = boardService.registerBoard(boardDto);
+            if (registerBoard == 1) {
+                message.setStatus(StatusEnum.OK);
+                message.setData(boardDto);
+                message.setMessage("success");
+            } else {
+                message.setStatus(StatusEnum.OK);
+                message.setData(boardDto);
+                message.setMessage("fail");
+            }
+            return new ResponseEntity<>(message, httpHeaders, HttpStatus.OK);
+        } catch (Exception e) {
+            message.setStatus(StatusEnum.INTERNAL_SERVER_ERROR);
+            message.setMessage("fail");
+            return new ResponseEntity<>(message, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return new ResponseEntity("등록 완료", HttpStatus.OK);
     }
 
     /**
      * 수정
      *
-     * @param boardVO
+     * @param boardDto
      * @return
      */
     @PutMapping("/board")
-    public ResponseEntity updateBoard(BoardVO boardVO) {
+    public ResponseEntity<Message> updateBoard(@RequestBody BoardDto boardDto) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Content-type", "application/json;charset=UTF-8");
+        Message message = new Message();
 
-        int updateBoard = boardService.updateBoard(boardVO);
-        if (updateBoard == 0) {
-            return new ResponseEntity("수정 실패", HttpStatus.NOT_FOUND);
+        try {
+            int updateBoard = boardService.updateBoard(boardDto);
+            if (updateBoard == 1) {
+                message.setStatus(StatusEnum.OK);
+                message.setData(boardDto);
+                message.setMessage("success");
+            } else {
+                message.setStatus(StatusEnum.OK);
+                message.setData(boardDto);
+                message.setMessage("fail");
+            }
+            return new ResponseEntity<>(message, httpHeaders, HttpStatus.OK);
+        } catch (Exception e) {
+            message.setStatus(StatusEnum.INTERNAL_SERVER_ERROR);
+            message.setMessage("fail");
+            return new ResponseEntity<>(message, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return new ResponseEntity("수정 완료", HttpStatus.OK);
     }
 
     /**
      * 삭제
      *
-     * @param boardVO
+     * @param id
      * @return
      */
     @DeleteMapping("/board/{id}")
-    public ResponseEntity deleteBoard(BoardVO boardVO) {
+    public ResponseEntity<Message> deleteBoard(@PathVariable Long id) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Content-type", "application/json;charset=UTF-8");
+        Message message = new Message();
 
-        int deleteBoard = boardService.deleteBoard(boardVO);
-        if (deleteBoard == 0) {
-            return new ResponseEntity("삭제 실패", HttpStatus.NOT_FOUND);
+        try {
+            int deleteBoard = boardService.deleteBoard(id);
+            if (deleteBoard == 1) {
+                message.setStatus(StatusEnum.OK);
+                message.setData(deleteBoard);
+                message.setMessage("success");
+            } else {
+                message.setStatus(StatusEnum.OK);
+                message.setData(id);
+                message.setMessage("fail");
+            }
+            return new ResponseEntity<>(message, httpHeaders, HttpStatus.OK);
+        } catch (Exception e) {
+            message.setStatus(StatusEnum.INTERNAL_SERVER_ERROR);
+            message.setMessage("fail");
+            return new ResponseEntity<>(message, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return new ResponseEntity("삭제 완료", HttpStatus.OK);
     }
-
 }

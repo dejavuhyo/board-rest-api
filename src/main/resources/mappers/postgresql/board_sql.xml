@@ -3,7 +3,7 @@
 
 <mapper namespace="com.example.board.mapper.BoardMapper">
 
-    <select id="getBoardList" resultType="com.example.board.vo.BoardVO">
+    <select id="getBoardList" resultType="com.example.board.dto.BoardDto">
         select id
              , title
              , contents
@@ -14,7 +14,7 @@
         order by id desc
     </select>
 
-    <select id="searchBoardList" parameterType="com.example.board.vo.BoardVO" resultType="com.example.board.vo.BoardVO">
+    <select id="searchBoardList" parameterType="com.example.board.dto.BoardDto" resultType="com.example.board.dto.BoardDto">
         select id
              , title
              , contents
@@ -35,7 +35,7 @@
         order by id desc
     </select>
 
-    <select id="findBoardById" parameterType="com.example.board.vo.BoardVO" resultType="com.example.board.vo.BoardVO">
+    <select id="findBoardById" parameterType="Long" resultType="com.example.board.dto.BoardDto">
         select id
              , title
              , contents
@@ -47,7 +47,7 @@
         order by id desc
     </select>
 
-    <insert id="registerBoard" parameterType="com.example.board.vo.BoardVO">
+    <insert id="registerBoard" parameterType="com.example.board.dto.BoardDto">
         <selectKey keyProperty="id" resultType="int" order="BEFORE">
             select max(id + 1) from tb_board
         </selectKey>
@@ -62,7 +62,7 @@
                , #{writer})
     </insert>
 
-    <update id="updateBoard" parameterType="com.example.board.vo.BoardVO">
+    <update id="updateBoard" parameterType="com.example.board.dto.BoardDto">
         update tb_board
         set title    = #{title}
           , contents = #{contents}
@@ -70,7 +70,7 @@
         where id = #{id}
     </update>
 
-    <delete id="deleteBoard" parameterType="com.example.board.vo.BoardVO">
+    <delete id="deleteBoard" parameterType="Long">
         delete
         from tb_board
         where id = #{id}

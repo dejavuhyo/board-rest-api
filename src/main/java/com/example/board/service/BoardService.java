@@ -1,21 +1,21 @@
 package com.example.board.service;
 
-import com.example.board.vo.BoardVO;
+import com.example.board.dto.BoardDto;
 
 import java.util.List;
 
 public interface BoardService {
 
-    List<BoardVO> getBoardList();
+    List<BoardDto> getBoardList();
 
-    List<BoardVO> searchBoardList(BoardVO boardVO);
+    List<BoardDto> searchBoardList(BoardDto boardDto);
 
-    BoardVO findBoardById(BoardVO boardVO);
+    BoardDto findBoardById(Long id);
 
-    int registerBoard(BoardVO boardVO);
+    int registerBoard(BoardDto boardDto);
 
-    int updateBoard(BoardVO boardVO);
+    int updateBoard(BoardDto boardDto);
 
-    int deleteBoard(BoardVO boardVO);
+    int deleteBoard(Long id);
 
 }
