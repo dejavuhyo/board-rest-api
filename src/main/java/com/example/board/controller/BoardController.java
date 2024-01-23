@@ -4,8 +4,11 @@ import com.example.board.dto.BoardDto;
 import com.example.board.dto.Message;
 import com.example.board.dto.StatusEnum;
 import com.example.board.service.BoardService;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,14 +35,19 @@ public class BoardController {
     @GetMapping("/board")
     public ResponseEntity<Message> getBoardList() {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("Content-type", "application/json;charset=UTF-8");
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         Message message = new Message();
 
         try {
             List<BoardDto> getBoardList = boardService.getBoardList();
-            message.setStatus(StatusEnum.OK);
-            message.setData(getBoardList);
-            message.setMessage("success");
+            if (CollectionUtils.isNotEmpty(getBoardList)) {
+                message.setStatus(StatusEnum.OK);
+                message.setData(getBoardList);
+                message.setMessage("목록 조회 성공");
+            } else {
+                message.setStatus(StatusEnum.BAD_REQUEST);
+                message.setMessage("fail");
+            }
             return new ResponseEntity<>(message, httpHeaders, HttpStatus.OK);
         } catch (Exception e) {
             message.setStatus(StatusEnum.INTERNAL_SERVER_ERROR);
@@ -57,14 +65,19 @@ public class BoardController {
     @GetMapping("/board/search")
     public ResponseEntity<Message> searchBoardList(@RequestBody BoardDto boardDto) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("Content-type", "application/json;charset=UTF-8");
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         Message message = new Message();
 
         try {
             List<BoardDto> searchBoardList = boardService.searchBoardList(boardDto);
-            message.setStatus(StatusEnum.OK);
-            message.setData(searchBoardList);
-            message.setMessage("success");
+            if (CollectionUtils.isNotEmpty(searchBoardList)) {
+                message.setStatus(StatusEnum.OK);
+                message.setData(searchBoardList);
+                message.setMessage("검색 성공");
+            } else {
+                message.setStatus(StatusEnum.BAD_REQUEST);
+                message.setMessage("fail");
+            }
             return new ResponseEntity<>(message, httpHeaders, HttpStatus.OK);
         } catch (Exception e) {
             message.setStatus(StatusEnum.INTERNAL_SERVER_ERROR);
@@ -82,14 +95,19 @@ public class BoardController {
     @GetMapping("/board/{id}")
     public ResponseEntity<Message> findBoardById(@PathVariable Long id) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("Content-type", "application/json;charset=UTF-8");
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         Message message = new Message();
 
         try {
             BoardDto findBoardById = boardService.findBoardById(id);
-            message.setStatus(StatusEnum.OK);
-            message.setData(findBoardById);
-            message.setMessage("success");
+            if (findBoardById.getId() != null) {
+                message.setStatus(StatusEnum.OK);
+                message.setData(findBoardById);
+                message.setMessage("상세 조회 성공");
+            } else {
+                message.setStatus(StatusEnum.BAD_REQUEST);
+                message.setMessage("fail");
+            }
             return new ResponseEntity<>(message, httpHeaders, HttpStatus.OK);
         } catch (Exception e) {
             message.setStatus(StatusEnum.INTERNAL_SERVER_ERROR);
@@ -107,7 +125,7 @@ public class BoardController {
     @PostMapping("/board")
     public ResponseEntity<Message> registerBoard(@RequestBody BoardDto boardDto) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("Content-type", "application/json;charset=UTF-8");
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         Message message = new Message();
 
         try {
@@ -115,13 +133,12 @@ public class BoardController {
             if (registerBoard == 1) {
                 message.setStatus(StatusEnum.OK);
                 message.setData(boardDto);
-                message.setMessage("success");
+                message.setMessage("등록 성공");
             } else {
-                message.setStatus(StatusEnum.OK);
-                message.setData(boardDto);
+                message.setStatus(StatusEnum.BAD_REQUEST);
                 message.setMessage("fail");
             }
-            return new ResponseEntity<>(message, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>(message, httpHeaders, HttpStatus.CREATED);
         } catch (Exception e) {
             message.setStatus(StatusEnum.INTERNAL_SERVER_ERROR);
             message.setMessage("fail");
@@ -138,7 +155,7 @@ public class BoardController {
     @PutMapping("/board")
     public ResponseEntity<Message> updateBoard(@RequestBody BoardDto boardDto) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("Content-type", "application/json;charset=UTF-8");
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         Message message = new Message();
 
         try {
@@ -146,13 +163,12 @@ public class BoardController {
             if (updateBoard == 1) {
                 message.setStatus(StatusEnum.OK);
                 message.setData(boardDto);
-                message.setMessage("success");
+                message.setMessage("수정 성공");
             } else {
-                message.setStatus(StatusEnum.OK);
-                message.setData(boardDto);
+                message.setStatus(StatusEnum.BAD_REQUEST);
                 message.setMessage("fail");
             }
-            return new ResponseEntity<>(message, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>(message, httpHeaders, HttpStatus.CREATED);
         } catch (Exception e) {
             message.setStatus(StatusEnum.INTERNAL_SERVER_ERROR);
             message.setMessage("fail");
@@ -169,7 +185,7 @@ public class BoardController {
     @DeleteMapping("/board/{id}")
     public ResponseEntity<Message> deleteBoard(@PathVariable Long id) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("Content-type", "application/json;charset=UTF-8");
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         Message message = new Message();
 
         try {
@@ -177,10 +193,9 @@ public class BoardController {
             if (deleteBoard == 1) {
                 message.setStatus(StatusEnum.OK);
                 message.setData(deleteBoard);
-                message.setMessage("success");
+                message.setMessage("삭제 성공");
             } else {
-                message.setStatus(StatusEnum.OK);
-                message.setData(id);
+                message.setStatus(StatusEnum.BAD_REQUEST);
                 message.setMessage("fail");
             }
             return new ResponseEntity<>(message, httpHeaders, HttpStatus.OK);
